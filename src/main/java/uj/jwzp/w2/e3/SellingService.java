@@ -24,11 +24,7 @@ public class SellingService {
             price = price.subtract(BigDecimal.valueOf(3));
         }
         boolean sold = moneyService.pay(customer, price);
-        if (sold) {
-            return persistenceLayer.saveTransaction(customer, item, quantity);
-        } else {
-            return sold;
-        }
+        return sold && persistenceLayer.saveTransaction(customer, item, quantity);
     }
 
     public DiscountsTestConfig getDiscountsConfig() {
