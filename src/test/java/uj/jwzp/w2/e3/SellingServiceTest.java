@@ -76,11 +76,16 @@ public class SellingServiceTest {
 
     @Test
     public void mockTest() {
+        //given
         SellingService uut = new SellingService(perLayer);
         DiscountsTestConfig config = mock(DiscountsTestConfig.class);
         uut.setDiscountsConfig(config);
         Mockito.when(config.isWeekendPromotion()).thenReturn(false);
+
+        //when
         boolean promotion = uut.getDiscountsConfig().isWeekendPromotion();
+
+        //then
         Assert.assertFalse(promotion);
     }
 }
