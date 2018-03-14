@@ -19,13 +19,13 @@ public class SellingServiceTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
     @Mock
-    private PersistenceLayer persistenceLayer;
+    private PersistenceLayer perLayer;
 
     @Test
     public void notSell() {
         //given
-        SellingService uut = new SellingService(persistenceLayer);
-        Mockito.when(persistenceLayer.saveCustomer(Mockito.any())).thenReturn(Boolean.TRUE);
+        SellingService uut = new SellingService(perLayer);
+        Mockito.when(perLayer.saveCustomer(Mockito.any())).thenReturn(Boolean.TRUE);
         Item i = new Item("i", new BigDecimal(3));
         Customer c = new Customer(1, "DasCustomer", "Kraków, Lojasiewicza");
 
@@ -40,8 +40,8 @@ public class SellingServiceTest {
     @Test
     public void sell() {
         //given
-        SellingService uut = new SellingService(persistenceLayer);
-        Mockito.when(persistenceLayer.saveCustomer(Mockito.any())).thenReturn(Boolean.TRUE);
+        SellingService uut = new SellingService(perLayer);
+        Mockito.when(perLayer.saveCustomer(Mockito.any())).thenReturn(Boolean.TRUE);
         Item i = new Item("i", new BigDecimal(3));
         Customer c = new Customer(1, "DasCustomer", "Kraków, Lojasiewicza");
 
@@ -56,10 +56,10 @@ public class SellingServiceTest {
     @Test
     public void sellALot() {
         //given
-        SellingService uut = new SellingService(persistenceLayer);
+        SellingService uut = new SellingService(perLayer);
         DiscountsTestConfig config = mock(DiscountsTestConfig.class);
         uut.setDiscountsConfig(config);
-        Mockito.when(persistenceLayer.saveCustomer(Mockito.any())).thenReturn(Boolean.TRUE);
+        Mockito.when(perLayer.saveCustomer(Mockito.any())).thenReturn(Boolean.TRUE);
         Item i = new Item("i", new BigDecimal(3));
         Customer c = new Customer(1, "DasCustomer", "Kraków, Lojasiewicza");
         uut.moneyService.addMoney(c, new BigDecimal(990));
@@ -76,7 +76,7 @@ public class SellingServiceTest {
 
     @Test
     public void mockTest() {
-        SellingService uut = new SellingService(persistenceLayer);
+        SellingService uut = new SellingService(perLayer);
         DiscountsTestConfig config = mock(DiscountsTestConfig.class);
         uut.setDiscountsConfig(config);
         Mockito.when(config.isWeekendPromotion()).thenReturn(false);
