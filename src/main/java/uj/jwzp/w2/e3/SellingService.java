@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 
 public class SellingService {
 
-    private final PersistenceLayer persistenceLayer;
     protected final CustomerMoneyService moneyService;
+    private final PersistenceLayer persistenceLayer;
     private DiscountsTestConfig discountsConfig;
 
     SellingService(PersistenceLayer persistenceLayer) {
@@ -19,7 +19,7 @@ public class SellingService {
 
     public boolean sell(Item item, int quantity, Customer customer) {
         BigDecimal price = item.getPrice().subtract(discountsConfig.getDiscountForItem(item, customer))
-                                            .multiply(BigDecimal.valueOf(quantity));
+                .multiply(BigDecimal.valueOf(quantity));
         if (discountsConfig.isWeekendPromotion() && price.compareTo(BigDecimal.valueOf(5)) > 0) {
             price = price.subtract(BigDecimal.valueOf(3));
         }

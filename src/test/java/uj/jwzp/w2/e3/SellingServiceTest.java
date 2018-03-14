@@ -16,10 +16,10 @@ import static org.mockito.Mockito.mock;
 
 public class SellingServiceTest {
 
-    @Mock
-    private PersistenceLayer persistenceLayer;
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
+    @Mock
+    private PersistenceLayer persistenceLayer;
 
     @Test
     public void notSell() {
@@ -64,7 +64,7 @@ public class SellingServiceTest {
         Customer c = new Customer(1, "DasCustomer", "Kraków, Lojasiewicza");
         uut.moneyService.addMoney(c, new BigDecimal(990));
         Mockito.when(config.isWeekendPromotion()).thenReturn(false);
-        Mockito.when(config.getDiscountForItem(i,c)).thenReturn(DiscountsConfig.getDiscountForItem(i,c));
+        Mockito.when(config.getDiscountForItem(i, c)).thenReturn(DiscountsConfig.getDiscountForItem(i, c));
 
         //when
         boolean sold = uut.sell(i, 10, c);
@@ -75,23 +75,12 @@ public class SellingServiceTest {
     }
 
     @Test
-    public void setGetNameTest() {
-        //given
-        Item uut = new Item("unknown", new BigDecimal(10));
-
-        //when
-        uut.setName("product");
-
-        //then
-        Assert.assertEquals("product", uut.getName());
-    }
-
-    @Test
     public void mockTest() {
-            SellingService uut = new SellingService(persistenceLayer);
-            DiscountsTestConfig config = mock(DiscountsTestConfig.class);
-            Mockito.when(config.isWeekendPromotion()).thenReturn(false);
-            boolean promotion = uut.getDiscountsConfig().isWeekendPromotion();
-            Assert.assertFalse(promotion);
+        SellingService uut = new SellingService(persistenceLayer);
+        DiscountsTestConfig config = mock(DiscountsTestConfig.class);
+        uut.setDiscountsConfig(config);
+        Mockito.when(config.isWeekendPromotion()).thenReturn(false);
+        boolean promotion = uut.getDiscountsConfig().isWeekendPromotion();
+        Assert.assertFalse(promotion);
     }
 }

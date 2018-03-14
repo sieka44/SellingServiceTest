@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 public class CustomerMoneyService {
 
-    private HashMap<Customer, BigDecimal> kasa = new HashMap<>();
     private final PersistenceLayer persistenceLayer;
+    private HashMap<Customer, BigDecimal> kasa = new HashMap<>();
 
     CustomerMoneyService(PersistenceLayer persistenceLayer) {
         this.persistenceLayer = persistenceLayer;
